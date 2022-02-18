@@ -17,13 +17,13 @@ class ListsController < ApplicationController
   end
 
   def show
-    @bookmarks = Bookmark.all
     @list = List.find(params[:id])
+    @bookmarks = Bookmark.select { |bookmark| bookmark.list = @list }
   end
 
   private
 
   def list_params
-    params.require(:list).permit(:name)
+    params.require(:list).permit(:name, :photo)
   end
 end
