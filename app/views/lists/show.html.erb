@@ -1,9 +1,32 @@
-<h1><%= @list.name %></h1>
+<div class="banner h-500 text-center" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path @list.photo.key, height: 300, crop: :fill %>')">
+  <div class="container">
+    <h1><%= @list.name %></h1>
+  </div>
+</div>
 
-<%= link_to "Create New Bookmark", new_list_bookmark_path(@list) %>
+
+
+<%= link_to "Create New Bookmark", new_list_bookmark_path(@list), class: 'btn btn-primary'%>
 
 <h1>Lists#Bookmarks</h1>
-<% @bookmarks.each do |bookmark|%>
+<% @list.bookmarks.each do |bookmark|%>
+  <div class="cards">
+    <div class="card-trip">
+      <%= link_to list_bookmarks_path(@list) do %>
+        <img src="<%=bookmark.movie.poster_url%>" alt="poster" >
+      <% end %>
+      <div class="card-trip-infos">
+        <div>
+          <h3><%= bookmark.movie.title %></h3>
+          <p><%= bookmark.movie.overview %></p>
+        </div>
+        <h2 class="card-trip-pricing"></h2>
+      </div>
+    </div>
+  </div>
+
+
+
   <li><%= link_to bookmark.movie.title, list_bookmarks_path(@list) %> <%= link_to "Delete", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" } %>
 </li>
 <% end %>
